@@ -17,31 +17,31 @@ const {choice} = await prompt([
         name: "choice",
         choices: [
             {
-                name: "View all Employees.", 
+                name: "View all Employees", 
                 value: "VIEW_EMPLOYEES"
             },
             { 
-                name: "View all Departments.",
+                name: "View all Departments",
                 value: "VIEW_DEPARTMENTS"
             },
             {
-                name: "View all Roles.",
+                name: "View all Roles",
                 value: "VIEW_ROLE"
             },
             {
-                name: "Create a new role.",
+                name: "Create a new role",
                 value: "ADD_ROLE"
             },
             { 
-                name: "Create new Department.",
+                name: "Create new Department",
                 value: "ADD_DEPARTMENT"
             },
             {
-                name: "Create new Employee.",
+                name: "Create new Employee",
                 value: "ADD_EMPLOYEE"
             },
             {
-                name: "Update Employee information.",
+                name: "Update Employee information",
                 value: "UPDATE_EMPLOYEE"
             }       
     ]}
@@ -161,36 +161,38 @@ async function addRole(){
 }
 
 async function updateEMPROLE(){
-    const employees = await Db.updateEmployee;
-    const employeeChoices = employees.map(({emp_id, first_name, last_name})=>({
+
+    const employees = await Db.updateEmployee();
+
+    const employeeChoices = employees.map(({emp_id, first_name, last_name})=>
+        ({
         name: `${first_name} ${last_name}`,
         value: emp_id
-    }))
+        }));
 
     const {employeeID} = await prompt ([
         {
           type: "list",
-          name: "employeeID",
-          message: "Which employees role would you like to update?",
+          name: "emp_id",
+          message: "Which employees' role would you like to update?",
           choices: employeeChoices  
         }
-    ])
+    ]);
 
     const roles = await Db.viewRoles();
-    
     const roleChoices = roles.map(({rol_id, title})=>({
         name: title,
-        value:rol_id
-    }))
+        value: rol_id
+    }));
 
     const {roleID} = await prompt([
        {
            type: "list",
-           name: "roleID",
+           name: "rol_id",
            message: "Which role do you want to assign to the selected employee?",
            choices: roleChoices
        } 
-    ])
+    ]);
 
     await Db.updateEmployee(employeeID, roleID); 
     
