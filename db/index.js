@@ -40,4 +40,12 @@ class Db {
           "SELECT employee.emp_id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, FROM employee LEFT JOIN role on employee.rol_id = role.rol_id LEFT JOIN department on role.dep_id = department.dep_id"  
         )
     }
+
+    updateEmployee (employeeID, roleID){
+        return this.connection.query(
+            "UPDATE employee SET rol_id=? WHERE emp_id=?", [roleID,employeeID]
+        )
+    }
 }
+
+module.exports = new Db(connection);
