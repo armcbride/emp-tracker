@@ -134,6 +134,7 @@ async function addDepartment(){
 
 async function addRole(){
     const department = await Db.viewDepartment();
+    console.log(department);
     const departmentChoices = department.map(({dep_id, name})=>({
         name: name,
         value: dep_id
@@ -162,9 +163,8 @@ async function addRole(){
 
 async function updateEMPROLE(){
 
-    const employees = await Db.updateEmployee();
-
-    const employeeChoices = employees.map(({emp_id, first_name, last_name})=>
+    const employ = await Db.viewEmployees();
+    const employeeChoices = employ.map(({emp_id, first_name, last_name})=>
         ({
         name: `${first_name} ${last_name}`,
         value: emp_id
