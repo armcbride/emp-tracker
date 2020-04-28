@@ -58,7 +58,10 @@ const {choice} = await prompt([
         case "ADD_DEPARTMENT":
             return addDepartment(); 
         case "ADD_ROLE":
-            return addRole();       
+            return addRole();
+        case "UPDATE_EMPLOYEE":
+            return updateEMPROLE();
+
     }
 
 } 
@@ -83,25 +86,24 @@ async function getRole(){
 
 async function addEmployees(){
     const roles = await Db.viewRoles();
-    const employees = await Db.viewEmployees();
-
+    // const employees = await Db.viewEmployees();
 
     const employee = await prompt([
         {
             type:"input",
             message: "What is the employees First name?",
-            name:"firstname"
+            name:"first_name"
         },
         {
           type: "input",
           message: "what is the employees Last name?",
-          name: "lastname"  
+          name: "last_name"  
         }
     ])
 
-    const roleChoices = roles.map(({id, title})=>({
+    const roleChoices = roles.map(({rol_id, title})=>({
         name: title,
-        value: id
+        value: rol_id
     }))
 
     const {roleID} = await prompt({
@@ -113,6 +115,84 @@ async function addEmployees(){
 
     employee.rol_id = roleID;
 
-    await Db.createEmployee()
+    await Db.createEmployee(employee)
+    loadPrompts();
+}
 
+async function addDepartment(){
+ const department = await prompt([
+     {
+         name: "name",
+         type: "input",
+         message: "what is the name of the department?"
+     }
+ ])
+ await Db.createDepartment(department);
+
+ loadPrompts();
+}
+
+async function addRole(){
+    const department = await Db.viewDepartment();
+    const departmentChoices = department.map(({dep_id, name})=>({
+        name: name,
+        value: dep_id
+    }))
+    const role = await prompt([
+        {
+            name: "title",
+            message: "what is the name of the role?",
+            type: "input"
+        },
+        {
+            name: "salary",
+            message: "What is the salary?",
+            type: "input"
+        },
+        {
+            name: "dep_id",
+            message: "What department does the role fall under?",
+            type: "list",
+            choices: departmentChoices
+        }
+    ])
+    await Db.createRole(role);
+    loadPrompts();
+}
+
+async function updateEMPROLE(){
+    const employees = await Db.updateEmployee;
+    const employeeChoices = employees.map(({emp_id, first_name, last_name})=>({
+        name: `${first_name} ${last_name}`,
+        value: emp_id
+    }))
+
+    const {employeeID} = await prompt ([
+        {
+          type: "list",
+          name: "employeeID",
+          message: "Which employees role would you like to update?",
+          choices: employeeChoices  
+        }
+    ])
+
+    const roles = await Db.viewRoles();
+    
+    const roleChoices = roles.map(({rol_id, title})=>({
+        name: title,
+        value:rol_id
+    }))
+
+    const {roleID} = await prompt([
+       {
+           type: "list",
+           name: "roleID",
+           message: "Which role do you want to assign to the selected employee?",
+           choices: roleChoices
+       } 
+    ])
+
+    await Db.updateEmployee(employeeID, roleID); 
+    
+    loadPrompts();
 }

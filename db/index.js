@@ -14,13 +14,13 @@ class Db {
 
     createDepartment (department){
         return this.connection.query(
-            "INSERT INTO employee SET ?", department
+            "INSERT INTO department SET ?", department
         )
     };
 
     createRole (role){
         return this.connection.query(
-            "INSERT INTO employee SET ?", role
+            "INSERT INTO role SET ?", role
         )
     };
 
@@ -29,6 +29,7 @@ class Db {
             "SELECT department.dep_id, department.name FROM employee LEFT JOIN role on employee.rol_id = role.rol_id LEFT JOIN department on role.dep_id = department.dep_id GROUP BY department.dep_id, department.name"
         )
     }
+
     viewRoles (){
         return this.connection.query(
             "SELECT role.rol_id, role.title, department.name AS department, role.salary FROM role LEFT JOIN department on role.dep_id = department.dep_id"
@@ -37,7 +38,7 @@ class Db {
 
     viewEmployees (){
         return this.connection.query(
-          "SELECT employee.emp_id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, FROM employee LEFT JOIN role on employee.rol_id = role.rol_id LEFT JOIN department on role.dep_id = department.dep_id"  
+          "SELECT employee.emp_id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary FROM employee LEFT JOIN role on employee.rol_id = role.rol_id LEFT JOIN department on role.dep_id = department.dep_id"  
         )
     }
 
