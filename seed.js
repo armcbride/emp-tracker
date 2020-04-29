@@ -29,6 +29,10 @@ const {choice} = await prompt([
                 value: "VIEW_ROLE"
             },
             {
+                name: "View employees by manager",
+                value: "VIEW_EMPBYMANAGER"
+            },
+            {
                 name: "Create a new role",
                 value: "ADD_ROLE"
             },
@@ -43,7 +47,29 @@ const {choice} = await prompt([
             {
                 name: "Update Employee information",
                 value: "UPDATE_EMPLOYEE"
-            }       
+            },
+            {
+                name: "Update Manager information",
+                value: "UPDATE_MANAGER"
+            },       
+            {
+                name: "Update Employee information",
+                value: "UPDATE_EMPLOYEE"
+            },
+            {
+                name: "Delete Employee information",
+                value: "DELETE_EMPLOYEE"
+            },
+            ,
+            {
+                name: "Delete department",
+                value: "DELETE_DEPARTMENT"
+            },
+            ,
+            {
+                name: "Delete role",
+                value: "DELETE_ROLE"
+            },
     ]}
 ])
     switch (choice){
