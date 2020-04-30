@@ -26,7 +26,7 @@ class Db {
 
     viewDepartment (){
         return this.connection.query (
-            "SELECT department.dep_id, department.name FROM employee LEFT JOIN role on employee.rol_id = role.rol_id LEFT JOIN department on role.dep_id = department.dep_id GROUP BY department.dep_id, department.name"
+            "SELECT * FROM department"
         )
     }
 

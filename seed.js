@@ -87,6 +87,9 @@ const {choice} = await prompt([
             return addRole();
         case "UPDATE_EMPLOYEE":
             return updateEMPROLE();
+            case "FINISH":
+                connection.end();
+                
 
     }
 
