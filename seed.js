@@ -160,7 +160,6 @@ async function addDepartment(){
 
 async function addRole(){
     const department = await Db.viewDepartment();
-    console.log(department);
     const departmentChoices = department.map(({dep_id, name})=>({
         name: name,
         value: dep_id
