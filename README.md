@@ -35,7 +35,7 @@
   <p>armcbride</p> 
   <hr>
   <div id="tests"><h2>Tests</h2></div>
-  <p><img src = "./assets/images/emp-trackery.gif"></p>
+  <p><img src = "./assets/images/emp-tracker.gif"></p>
   <hr>
   <div id="quest"><h2>Questions?</h2> </div>
   <img align="right" width="100" height="100" src="https://avatars3.githubusercontent.com/u/58277359?v=4">         
